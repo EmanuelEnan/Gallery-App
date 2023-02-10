@@ -197,6 +197,7 @@ class _HomePageState extends State<HomePage> {
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: GridView.custom(
+                          // physics: const BouncingScrollPhysics(),
                           controller: scrollController,
                           gridDelegate: SliverWovenGridDelegate.count(
                             crossAxisCount: 2,

@@ -1,17 +1,31 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_app/screens/starting_page.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'models/bookmarks.dart';
-import 'screens/home_page.dart';
+
 import 'services/auth_service.dart';
 
 const String boxName = 'store';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyB2FkpKyaDTkIKWcecQQ6sLyThspDW50cM",
+        appId: "1:199015945834:web:cc4c94ae3882617c859c13",
+        messagingSenderId: "199015945834",
+        projectId: "gallery-app-cb706",
+      ),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
+
   await Hive.initFlutter();
 
   Hive.registerAdapter(BookmarksAdapter());
