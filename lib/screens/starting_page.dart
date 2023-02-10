@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/widgets/text_widget.dart';
 
 import '../services/auth_service.dart';
 
@@ -26,21 +27,8 @@ class StartingPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Otto International',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const Text(
-                  'Access all the photos in one place',
-                  style: TextStyle(
-                    color: Colors.black45,
-                    fontSize: 21,
-                  ),
-                ),
+                textWidget1('Otto International'),
+                textWidget2('Access all the photos in one place'),
                 const SizedBox(
                   height: 12,
                 ),

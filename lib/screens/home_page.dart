@@ -27,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   Tokens tokens = Tokens();
   Box<Bookmarks> myBox = Hive.box<Bookmarks>(boxName);
 
-  // ImageService imageService = ImageService();
-
   final List<String> posts = [];
   int page = 1;
   final int maxLength = 1000;
@@ -53,10 +51,8 @@ class _HomePageState extends State<HomePage> {
 
     for (final e in data) {
       final imageUrl = e['urls']['small'];
-      // final created = e['createdAt'];
 
       posts.add(imageUrl);
-      // posts.add(created);
     }
 
     // implementing infinte scrolling
@@ -102,27 +98,6 @@ class _HomePageState extends State<HomePage> {
             width: width,
             child: imageWidget1(),
           ),
-          // Positioned(
-          //   top: height * .3,
-          //   child: Container(
-          //     height: height * .7,
-          //     width: width,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(16),
-          //       color: Colors.white,
-          //     ),
-          //   ),
-          // ),
-          // Positioned(
-          //   right: 20,
-          //   top: 25,
-          //   child: IconButton(
-          //     onPressed: () {
-          //       AuthService().signOut();
-          //     },
-          //     icon: const Icon(Icons.logout_rounded),
-          //   ),
-          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -209,11 +184,11 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(
                                       builder: (_) => DetailView(
                                         url: posts[index],
-                                        // createDate: posts[index],
                                       ),
                                     ),
                                   );
                                 },
+                                // local cache mechanism
                                 child: CachedNetworkImage(
                                   imageUrl: posts[index],
                                   imageBuilder: (context, imageProvider) =>
@@ -236,6 +211,7 @@ class _HomePageState extends State<HomePage> {
                                           onPressed: () {
                                             var photoUrl = posts[index];
 
+                                            // local bookmarks
                                             myBox.add(
                                               Bookmarks(photoUrl: photoUrl),
                                             );
@@ -246,7 +222,8 @@ class _HomePageState extends State<HomePage> {
                                               duration: const Duration(
                                                   milliseconds: 1000),
                                               content: const Center(
-                                                  child: Text('photo saved!')),
+                                                child: Text('photo saved!'),
+                                              ),
                                             );
 
                                             ScaffoldMessenger.of(context)

@@ -5,22 +5,23 @@ class DetailView extends StatelessWidget {
   const DetailView({super.key, required this.url});
 
   final String url;
-  // final String createDate;
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: height,
+            width: width,
             child: imageWidget1(),
           ),
           SafeArea(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              height: height,
+              width: width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

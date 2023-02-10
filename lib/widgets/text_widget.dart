@@ -4,7 +4,7 @@ Widget textWidget1(String text) {
   return Text(
     text,
     style: const TextStyle(
-      fontSize: 22,
+      fontSize: 23,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
