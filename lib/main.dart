@@ -1,14 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_app/screens/starting_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'models/bookmarks.dart';
 import 'screens/home_page.dart';
+import 'services/auth_service.dart';
 
 const String boxName = 'store';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await Hive.initFlutter();
 
   Hive.registerAdapter(BookmarksAdapter());
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StartingPage(),
+      home: AuthService().handleAuthState(),
     );
   }
 }

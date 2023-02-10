@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:gallery_app/models/bookmarks.dart';
 import 'package:gallery_app/screens/detail_view.dart';
 import 'package:gallery_app/screens/save_page.dart';
+import 'package:gallery_app/services/auth_service.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -112,50 +114,78 @@ class _HomePageState extends State<HomePage> {
           //     ),
           //   ),
           // ),
+          // Positioned(
+          //   right: 20,
+          //   top: 25,
+          //   child: IconButton(
+          //     onPressed: () {
+          //       AuthService().signOut();
+          //     },
+          //     icon: const Icon(Icons.logout_rounded),
+          //   ),
+          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 45,
+                  top: 40,
                   bottom: 30,
                   left: 20,
                   right: 20,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
-                          'Otto International',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
+                          'Hi, ${FirebaseAuth.instance.currentUser!.displayName}, welcome to',
                         ),
-                        Text(
-                          'Check all the latest photos',
-                          style: TextStyle(
-                            color: Colors.black45,
-                          ),
+                        IconButton(
+                          onPressed: () {
+                            AuthService().signOut();
+                          },
+                          icon: const Icon(Icons.logout_rounded),
                         ),
                       ],
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const SavePage(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Otto International',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(
+                              'Check all the latest photos',
+                              style: TextStyle(
+                                color: Colors.black45,
+                              ),
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => const SavePage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'BOOKMARKS',
+                            style: TextStyle(color: Colors.black54),
                           ),
-                        );
-                      },
-                      child: const Text(
-                        'BOOKMARKS',
-                        style: TextStyle(color: Colors.black54),
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
