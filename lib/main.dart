@@ -13,6 +13,7 @@ const String boxName = 'store';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Firebase
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -23,16 +24,24 @@ Future main() async {
       ),
     );
   } else {
+    // Initialize Firebase for other platforms
     await Firebase.initializeApp();
   }
 
+  // Initialize Hive
   await Hive.initFlutter();
 
+  // Register the adapter for the Bookmarks class
   Hive.registerAdapter(BookmarksAdapter());
+
+  // Open the Hive box
   await Hive.openBox<Bookmarks>(boxName);
+
+  // Run the main application
   runApp(const MyApp());
 }
 
+/// The main widget for the Gallery App
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

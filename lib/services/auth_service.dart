@@ -10,6 +10,11 @@ class AuthService {
   GoogleSignInAccount? _user;
   GoogleSignInAccount? get user => _user;
 
+  /// Returns the authentication state stream builder.
+  ///
+  /// The stream listens to the authentication state changes
+  /// of FirebaseAuth instance.
+
   handleAuthState() {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -26,16 +31,17 @@ class AuthService {
           );
         } else {
           return const StartingPage();
-          // return const LandingPage();
         }
       },
     );
   }
 
-  Future signInWithGoogle() async {
-    // final GoogleSignInAccount? googleUser =
-    //     await GoogleSignIn(scopes: ['email']).signIn();
+  /// Signs in the user using their Google account.
+  ///
+  /// Signs in the user using the GoogleSignIn instance,
+  /// and retrieves the GoogleSignInAccount object.
 
+  Future signInWithGoogle() async {
     try {
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
@@ -60,6 +66,8 @@ class AuthService {
       }
     }
   }
+
+  /// Signs out the user.
 
   Future signOut() async {
     await googleSignIn.disconnect();

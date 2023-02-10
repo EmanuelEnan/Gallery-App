@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/widgets/image_widget.dart';
 
 class DetailView extends StatelessWidget {
   const DetailView({super.key, required this.url});
@@ -14,12 +15,7 @@ class DetailView extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: const Image(
-              image: AssetImage(
-                'assets/01.jpg',
-              ),
-              fit: BoxFit.cover,
-            ),
+            child: imageWidget1(),
           ),
           SafeArea(
             child: SizedBox(

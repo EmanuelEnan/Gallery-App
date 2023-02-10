@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/models/bookmarks.dart';
+import 'package:gallery_app/widgets/image_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../main.dart';
@@ -31,12 +32,7 @@ class _SavePageState extends State<SavePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  child: const Image(
-                    image: AssetImage(
-                      'assets/01.jpg',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+                  child: imageWidget1(),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

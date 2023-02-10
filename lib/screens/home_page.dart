@@ -8,6 +8,8 @@ import 'package:gallery_app/models/bookmarks.dart';
 import 'package:gallery_app/screens/detail_view.dart';
 import 'package:gallery_app/screens/save_page.dart';
 import 'package:gallery_app/services/auth_service.dart';
+import 'package:gallery_app/widgets/image_widget.dart';
+import 'package:gallery_app/widgets/text_widget.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   bool hasMore = true;
 
+  // connecting API
   getApi() async {
     setState(() {
       isLoading = true;
@@ -56,6 +59,7 @@ class _HomePageState extends State<HomePage> {
       // posts.add(created);
     }
 
+    // implementing infinte scrolling
     setState(() {
       isLoading = false;
       page = page + 1;
@@ -96,12 +100,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: height,
             width: width,
-            child: const Image(
-              image: AssetImage(
-                'assets/01.jpg',
-              ),
-              fit: BoxFit.cover,
-            ),
+            child: imageWidget1(),
           ),
           // Positioned(
           //   top: height * .3,
@@ -155,21 +154,9 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Otto International',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              'Check all the latest photos',
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
-                            ),
+                          children: [
+                            textWidget1('Otto International'),
+                            textWidget2('Check all the latest photos'),
                           ],
                         ),
                         TextButton(
@@ -180,10 +167,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             );
                           },
-                          child: const Text(
-                            'BOOKMARKS',
-                            style: TextStyle(color: Colors.black54),
-                          ),
+                          child: textWidget2('BOOKMARKS'),
                         ),
                       ],
                     ),
@@ -292,126 +276,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                // FutureBuilder<List<ImageModel>>(
-                //   future: imageService.getApi(),
-                //   builder: (context, snapshot) {
-                //     if (!snapshot.hasData) {
-                //       return const Center(
-                //         child: CircularProgressIndicator(
-                //           color: Colors.white54,
-                //         ),
-                //       );
-                //     } else if (snapshot.hasData) {
-                //       return Column(
-                //         children: [
-                //           Expanded(
-                //             child: Padding(
-                //               padding: const EdgeInsets.all(6.0),
-                //               child: GridView.custom(
-                //                 gridDelegate: SliverWovenGridDelegate.count(
-                //                   crossAxisCount: 2,
-                //                   // mainAxisSpacing: 2,
-                //                   // crossAxisSpacing: 2,
-                //                   pattern: [
-                //                     const WovenGridTile(1),
-                //                     const WovenGridTile(
-                //                       5 / 7,
-                //                       crossAxisRatio: 0.9,
-                //                       alignment: AlignmentDirectional.centerEnd,
-                //                     ),
-                //                   ],
-                //                 ),
-                //                 childrenDelegate: SliverChildBuilderDelegate(
-                //                   childCount: 30,
-                //                   (context, index) {
-                //                     return GestureDetector(
-                //                       onTap: () {
-                //                         Navigator.of(context).push(
-                //                           MaterialPageRoute(
-                //                             builder: (_) => DetailView(
-                //                               url: snapshot
-                //                                   .data![index].urls!.small!,
-                //                               createDate: snapshot
-                //                                   .data![index].createdAt!,
-                //                             ),
-                //                           ),
-                //                         );
-                //                       },
-                //                       child: CachedNetworkImage(
-                //                         imageUrl:
-                //                             snapshot.data![index].urls!.small!,
-                //                         imageBuilder:
-                //                             (context, imageProvider) => Stack(
-                //                           children: [
-                //                             Container(
-                //                               decoration: BoxDecoration(
-                //                                 image: DecorationImage(
-                //                                   image: imageProvider,
-                //                                   fit: BoxFit.cover,
-                //                                 ),
-                //                               ),
-                //                             ),
-                //                             Positioned(
-                //                               right: 10,
-                //                               top: 10,
-                //                               child: IconButton(
-                //                                 onPressed: () {},
-                //                                 icon: Icon(
-                //                                   Icons.bookmark,
-                //                                   color: Colors.black
-                //                                       .withOpacity(.4),
-                //                                 ),
-                //                               ),
-                //                             ),
-                //                           ],
-                //                         ),
-                //                         placeholder: (context, url) =>
-                //                             const Center(
-                //                           child: CircularProgressIndicator(),
-                //                         ),
-                //                         errorWidget: (context, url, error) =>
-                //                             const Center(
-                //                           child: Icon(Icons.error),
-                //                         ),
-                //                       ),
-
-                //                       // ClipRRect(
-                //                       //   borderRadius: BorderRadius.circular(14),
-                //                       //   child: Image.network(
-                //                       //     snapshot.data![index].urls!.small!,
-                //                       //     height: 300,
-                //                       //     width: 300,
-                //                       //   ),
-                //                       // ),
-                //                     );
-                //                   },
-                //                 ),
-                //               ),
-                //             ),
-                //             //   itemCount: snapshot.data!.length,
-                //             //   itemBuilder: (context, index) {
-                //             //     return Column(
-                //             //       children: [
-                //             //         // Text(
-                //             //         //   snapshot.data![index].id!,
-                //             //         // ),
-                //             //         Image.network(
-                //             //           snapshot.data![index].urls!.small!,
-                //             //           height: 300,
-                //             //           width: 300,
-                //             //         ),
-                //             //       ],
-                //             //     );
-                //             //   },
-                //             // ),
-                //           ),
-                //         ],
-                //       );
-                //     } else {
-                //       return const Text('error');
-                //     }
-                //   },
-                // ),
               ),
             ],
           ),
